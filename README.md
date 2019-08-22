@@ -5,3 +5,4 @@
 
 1. retrofit
 2. rxjava
+3. lifecycle
