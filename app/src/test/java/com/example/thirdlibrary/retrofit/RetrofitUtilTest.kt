@@ -6,9 +6,9 @@ import org.junit.Test
 class RetrofitUtilTest {
 
     @Test
-    fun main() {
+    fun testRetrofitUtilInit() {
         val testService: TestService = RetrofitUtil.createService(TestService::class)
-        testService.getSpecies("spirit")
+        val recommendList = testService.musicRecommendList()
     }
 
 }
