@@ -28,18 +28,18 @@ interface TestService {
  * song_id： 歌曲id，查询歌曲详情需要用到
  */
 data class MusicBean(
-    val album_title: String,
-    val author: String,
-    val info: String,
-    val language: String,
-    val pic_big: String,
-    val pic_huge: String,
-    val pic_premium: String,
-    val pic_singer: String,
-    val pic_small: String,
-    val publishtime: String,
-    val si_proxycompany: String,
-    val song_id: String,
-    val ting_uid: String,
-    val title: String
+    val album_title: String = "test",
+    val author: String = "test",
+    val info: String = "test",
+    val language: String = "test",
+    val pic_big: String = "test",
+    val pic_huge: String = "test",
+    val pic_premium: String = "test",
+    val pic_singer: String = "test",
+    val pic_small: String = "test",
+    val publishtime: String = "test",
+    val si_proxycompany: String = "test",
+    val song_id: String = "test",
+    val ting_uid: String = "test",
+    val title: String = "test"
 )

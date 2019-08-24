@@ -7,5 +7,6 @@ import com.tencent.mmkv.MMKV
  */
 object MMKVUtil {
     val mmkv = MMKV.defaultMMKV()
-    inline fun <reified T> getByKey(key: String): T = mmkv.getString(key, null)?.toBean<T>()
+    inline fun <reified T> getByKey(key: String): T? =
+        mmkv.getString(key, null)?.toBean<T>()
 }
