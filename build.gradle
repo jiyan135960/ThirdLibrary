@@ -27,6 +27,8 @@ ext {
     retrofit_version = '2.6.0'
     rxjava_version = '3.0.0-RC1'
     gson_version = '2.4.0'
+    rxkotlin_version = '2.4.0'
+    rxAndroid_version = '2.1.1'
 }
 
 task clean(type: Delete) {

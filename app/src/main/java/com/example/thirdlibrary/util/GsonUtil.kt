@@ -13,5 +13,4 @@ object GsonUtil {
 }
 
 inline fun <reified T> T.toJson(): String = GsonUtil.toJson(this)
-
 inline fun <reified T> String.toBean(): T = GsonUtil.fromJson(this)
