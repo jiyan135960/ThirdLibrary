@@ -35,7 +35,7 @@ class GsonUtilTest {
     @Test
     fun testToJson() {
         val musicBean = MusicBean()
-        val musicResponse = CommResponse(1, "msg", musicBean.toList())
+        val musicResponse = CommResponse(1, "msg", mutableListOf(musicBean))
         val musicResponseListJson = musicResponse.toJson()
         val expectedMusicResponseListJson =
             "{\"code\":1,\"msg\":\"msg\",\"data\":[{\"album_title\":\"\",\"author\":\"\",\"info\":\"\"," +
