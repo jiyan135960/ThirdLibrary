@@ -8,7 +8,7 @@ import com.google.gson.reflect.TypeToken
  */
 object GsonUtil {
     val gson = Gson()
-    inline fun <reified T> toJson(instance: T): String = gson.toJson(instance)
+    inline fun <reified T> toJson(instance: T): String = gson.toJson(instance, object : TypeToken<T>() {}.type)
     inline fun <reified T> fromJson(jsonStr: String): T = gson.fromJson(jsonStr, object : TypeToken<T>() {}.type)
 }
 

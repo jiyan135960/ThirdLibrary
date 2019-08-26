@@ -54,3 +54,27 @@ Gson().from(String,Type/Class\<T>)
    1. WildcardTypeImpl: 创建通配符类型 WildcardTypeImpl()
    2. WildcardTypeImpl: 获得上下限制(upperBound,lowerBound),方式依然通过调用canonicalize()
 5. \$Gson$Types: 否则返回Type,表示这个类型不能序列化,是则返回
+
+## Gson默认的Type
+
+1. ArrayTypeAdapter
+2. DateTypeAdapter
+3. ObjectTypeAdapter
+4. SqlDateTypeAdapter
+5. TimeTypeAdapter
+6. TreeTypeAdapter
+
+## Gson的TypeAdapterFactory
+
+1. CollectionTypeAdapterFactory
+2. JsonAdapterAnnotationTypeAdapterFactory
+3. MapTypeAdapterFactory
+4. ReflectiveTypeAdapterFactory
+
+## Gson的annotation
+
+1. Expose: Excluder使用,用于在序列化或反序列化时去掉默写字段
+2. JsonAdapter: 表示要与类或字段一起使用的Gson {@link TypeAdapter}的注释。
+3. SerializedName: 提供备用字段(如果一个字段有两种不同的key使用)
+4. Since: 自成员或类型出现以来指示版本号的注释。这个注释对于管理web服务Json类的版本控制非常有用(与Until是反义词)
+5. Until: 表示版本号的注释，直到某个版本该成员或类型将不再使用。(如果创建Gson的版本号超过了注释中存储的值，那么该字段将从JSON输出中被忽略。这个注释对于管理web服务JSON类的版本控制非常有用。)(与Since是反义词)
