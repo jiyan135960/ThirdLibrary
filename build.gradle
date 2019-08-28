@@ -29,6 +29,8 @@ ext {
     gson_version = '2.4.0'
     rxkotlin_version = '2.4.0'
     rxAndroid_version = '2.1.1'
+    lifecycle_version = '2.2.0-alpha03'
+    mmkv_version = '1.0.22'
 }
 
 task clean(type: Delete) {
