@@ -1,4 +1,4 @@
-package com.example.thirdlibrary.bean
+package com.example.thirdlibrary.function.recommend.bean
 
 /**
  * Created by zyx on 19-8-26.
@@ -18,7 +18,7 @@ package com.example.thirdlibrary.bean
  * pic_small： 歌曲图片-小
  * song_id： 歌曲id，查询歌曲详情需要用到
  */
-data class MusicBean(
+data class RecommendMusic(
     val album_title: String = "",
     val author: String = "",
     val info: String = "",
