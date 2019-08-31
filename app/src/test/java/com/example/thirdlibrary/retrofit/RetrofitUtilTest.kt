@@ -10,9 +10,11 @@ import org.junit.Test
 class RetrofitUtilTest {
 
     @Test
-    fun testRecommendMusic() {
+    fun testRecommendMusicRealRequest() {
         val recommendService: RecommendService = RetrofitUtil.createService()
         val recommendMusic = recommendService.recommendMusic()
         recommendMusic.fieldLoop().subscribeWithError { println("${it.first}:${it.second}") }
     }
+
+
 }
