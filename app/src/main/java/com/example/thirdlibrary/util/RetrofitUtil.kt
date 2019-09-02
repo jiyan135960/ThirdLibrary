@@ -18,6 +18,7 @@ object RetrofitUtil {
 
     init {
         val loggingInterceptor = HttpLoggingInterceptor()
+        loggingInterceptor.level = HttpLoggingInterceptor.Level.BODY
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(loggingInterceptor)
             .connectTimeout(DEFAULT_CONNECT_TIMEOUT, TimeUnit.SECONDS)

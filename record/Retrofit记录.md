@@ -2,7 +2,7 @@
 
 ## MockRetrofit
 
-### 使用流程
+### MockRetrofit使用流程
 
 1. 创建Retrofit:Retrofit.Builder().baseUrl().build();
 2. 创建NetworkBehavior:NetworkBehavior.create();
@@ -21,3 +21,18 @@
 - NetworkBehavior
 - package-info
 
+未完成
+
+## Retrofit
+
+### Retrofit使用流程
+
+1. 创建Retrofit
+2. 创建OkHttpClient
+3. 创建Service
+4. 调用返回
+
+### Retrofit包架构
+
+1. http: annotation
+2. internal

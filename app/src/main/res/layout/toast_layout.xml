@@ -20,7 +20,7 @@
             android:layout_width="24dp"
             android:layout_height="24dp"
             android:layout_marginEnd="5dp"
-            android:contentDescription="@string/common_util_tips"/>
+            android:contentDescription="waiting"/>
 
         <TextView
             android:id="@android:id/message"
