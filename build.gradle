@@ -26,9 +26,12 @@ allprojects {
 ext {
     retrofit_version = '2.6.0'
     rxjava_version = '3.0.0-RC1'
-    gson_version = '2.4.0'
+    gson_version = '2.8.5'
     rxkotlin_version = '2.4.0'
     rxAndroid_version = '2.1.1'
+    lifecycle_version = '2.2.0-alpha03'
+    mmkv_version = '1.0.22'
+    logging_version = '4.1.0'
 }
 
 task clean(type: Delete) {
