@@ -10,7 +10,7 @@ import retrofit2.http.GET
  */
 interface RecommendService {
 
-    @GET("music/recommend/list ")
+    @GET("api/music/recommend/list ")
     fun recommendMusic(): Observable<CommResponse<List<RecommendMusic>>>
 
 }

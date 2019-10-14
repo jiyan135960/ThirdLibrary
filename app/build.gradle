@@ -20,6 +20,10 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+//    configurations.all() {
+//        Configuration configuration ->
+//            configuration.resolutionStrategy.force(['io.reactivex.rxjava3:rxjava:3.0.0-RC1'])
+//    }
 }
 
 dependencies {
@@ -39,7 +43,7 @@ dependencies {
     implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
     implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$retrofit_version"
-    implementation "io.reactivex.rxjava3:rxjava:$rxjava_version"
+    implementation "io.reactivex.rxjava2:rxjava:$rxjava_version"
     implementation "io.reactivex.rxjava2:rxkotlin:$rxkotlin_version"
     implementation "io.reactivex.rxjava2:rxandroid:$rxAndroid_version"
     implementation "androidx.lifecycle:lifecycle-runtime:$lifecycle_version"
@@ -48,5 +52,5 @@ dependencies {
     implementation "com.google.code.gson:gson:$gson_version"
     implementation "com.github.bumptech.glide:glide:$glide_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glide_version"
-
+    implementation "com.squareup.okhttp3:okhttp:$okhttp_version"
 }
