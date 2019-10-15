@@ -72,3 +72,19 @@
 
 ### Retrofit 执行调用
 
+1. 调用HttpServiceMethod的invoke方法
+   1. 生成OkHttpCall
+   2. 调用adapt方法，通过获取retrofit的adapter来处理
+      1. 默认DefaultCallAdapterFactory使用OkHttpCall
+      2. RxJava的CallAdapter使用RxJava封装OkHttpCall。
+   3. OkHttpCall封装了Okhttp的Call通过调用OkHttpClient生成RealCall
+   4. 同步情况
+      1. 进入OkHttp：RealCall调用了Dispatcher的执行将要执行的call加入其中
+      2. 继续调用getResponseWithInterceptorChain()请求调用
+      3. 调用Dispatcher.finish()结束调用
+   5. 异步情况
+      1. 调用Dispatcher执行enqueue()
+      2. Dispathcer 执行了Async的executeOn()方法.
+      3. 执行run方法完成请求
+   6. 终极调用Transmitter.noMoreChanged()进行网络访问
+   7. 访问方法maybeReleaseConnection()

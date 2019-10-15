@@ -12,7 +12,7 @@ object RetrofitUtil {
     private const val DEFAULT_CONNECT_TIMEOUT = 30L
     private const val DEFAULT_READ_TIMEOUT = 30L
 
-    const val baseUrl = "https://www.mxnzp.com/api/"
+    const val baseUrl = "https://www.mxnzp.com/"
 
     val retrofit: Retrofit
 
