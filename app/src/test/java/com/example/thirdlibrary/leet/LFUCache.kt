@@ -136,6 +136,7 @@ class LFUCache(val maxCache: Int) {
 
     fun print() {
         keyFrequency.forEach { frequencyValues[it.value]?.forEach { println("${it.key}:${it.value}") } }
+        println()
     }
 }
 
@@ -148,14 +149,23 @@ class TestLFU {
         //["LFUCache","put","put","put","put","put","get","put","get","get","get"]
         //[[2],[1,1],[1,11],[3,2],[3,3],[2,2],[1],[4,4],[1],[3],[4]]
         lfu.put(1, 1)
+        lfu.print()
         lfu.put(1, 11)
+        lfu.print()
         lfu.put(3, 2)
+        lfu.print()
         lfu.put(3, 3)
+        lfu.print()
         lfu.put(2, 2)
+        lfu.print()
         lfu.get(1)
+        lfu.print()
         lfu.put(4, 4)
+        lfu.print()
         lfu.get(1)
+        lfu.print()
         lfu.get(3)
+        lfu.print()
         lfu.get(4)
         lfu.print()
     }
