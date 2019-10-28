@@ -42,23 +42,22 @@ class LFUCache(val maxCache: Int) {
      * put与get都算使用频率
      */
     private var minFrequency = 0//记录最小频率用于删除
-    private val keyFrequency = HashMap<Int, Pair<Int, Int>>() //用于存储 key和(频率,位置)的map
-    private val frequencyValues = HashMap<Int, MutableList<Pair<Int, Int>>>() //用于存储 频率和key-值列表
+    private val keyFrequency = HashMap<Int, Int>() //用于存储 key和(频率,位置)的map
+    private val frequencyValues = HashMap<Int, LinkedHashMap<Int, Int>>() //用于存储 频率和key-值
 
 
     fun get(key: Int): Int {
-        val pair = keyFrequency[key] ?: return -1
+        if (maxCache < 1) return -1
+        val frequency = keyFrequency[key] ?: return -1
         // 使用频率 +1
-        val (value, keyFrequencyValue) = updateAddFrequencyMap(pair.first, pair.second)
-        keyFrequency[key] = keyFrequencyValue
-        return value
+        return updateAddFrequencyMap(key, frequency)
     }
 
 
     fun put(key: Int, value: Int) {
+        if (maxCache < 1) return
         if (keyFrequency.containsKey(key)) {
-            val frequencyIndex = keyFrequency[key]!!
-            updateAddFrequencyMap(frequencyIndex.first, frequencyIndex.second)
+            updateKeyValue(key, value)
         } else {
             if (maxCache <= keyFrequency.size) {
                 removeMinFrequency()
@@ -68,24 +67,45 @@ class LFUCache(val maxCache: Int) {
         }
     }
 
-    private fun removeMinFrequency() {
-        val keyValues = frequencyValues[minFrequency] ?: return
-        val keyValue = keyValues.removeAt(0)
-        if (keyValues.isEmpty()) frequencyValues.remove(minFrequency)
-        keyFrequency.remove(keyValue.first)
+    private fun updateKeyValue(key: Int, value: Int) {
+        var frequency = keyFrequency[key]!!
+        updateAddFrequencyMap(key, frequency)
+        frequency = keyFrequency[key]!!
+        val frequencyKeyValues = frequencyValues[frequency]!!
+        frequencyKeyValues.remove(key)
+        frequencyKeyValues[key] = value
     }
 
-    //更新并为频率加1
+    private fun removeMinFrequency() {
+        val keyValues = frequencyValues[minFrequency] ?: return
+        val keyValue = removeKeyValueInFrequency(keyValues)
+        keyFrequency.remove(keyValue.key)
+    }
+
+
+    /**
+     * 移除频率map中的一条数据
+     */
+    private fun removeKeyValueInFrequency(keyValues: LinkedHashMap<Int, Int>): MutableMap.MutableEntry<Int, Int> {
+        val keyValuesIterator = keyValues.entries.iterator()
+        val keyValue = keyValuesIterator.next()
+        keyValuesIterator.remove()
+        if (keyValues.isEmpty()) frequencyValues.remove(minFrequency)
+        return keyValue
+    }
+
+    //更新并为频率加1,返回原有数据
     private fun updateAddFrequencyMap(
-        currentFrequency: Int,
-        currentIndex: Int
-    ): Pair<Int, Pair<Int, Int>> {
-        val value = removeIndexValueOnFrequency(currentFrequency, currentIndex)
+        key: Int,
+        currentFrequency: Int
+    ): Int {
+        val value = removeIndexValueOnFrequency(key, currentFrequency)
         val newFrequency = currentFrequency + 1
-        val values = frequencyValues.getOrPut(newFrequency, { mutableListOf() })
-        values.add(value)
+        val values = frequencyValues.getOrPut(newFrequency, { LinkedHashMap() })
+        values[key] = value
         updateMinFrequency(newFrequency)
-        return Pair(value.second, Pair(newFrequency, values.size - 1))
+        keyFrequency[key] = newFrequency
+        return value
     }
 
     //更新最小频率
@@ -99,9 +119,9 @@ class LFUCache(val maxCache: Int) {
 
 
     //移除频率map上的对应index的值,并移除key上
-    private fun removeIndexValueOnFrequency(frequency: Int, index: Int): Pair<Int, Int> {
+    private fun removeIndexValueOnFrequency(key: Int, frequency: Int): Int {
         val values = frequencyValues[frequency] ?: throw NullPointerException()
-        val value = values.removeAt(index)
+        val value = values.remove(key) ?: throw NullPointerException()
         if (values.isEmpty()) frequencyValues.remove(frequency)
         return value
     }
@@ -109,9 +129,13 @@ class LFUCache(val maxCache: Int) {
 
     //插入新的key
     private fun insertNew(key: Int, value: Int) {
-        val values = frequencyValues.getOrPut(1, { mutableListOf() })
-        values.add(Pair(key, value))
-        keyFrequency[key] = Pair(1, values.size - 1)
+        val values = frequencyValues.getOrPut(1, { LinkedHashMap() })
+        values[key] = value
+        keyFrequency[key] = 1
+    }
+
+    fun print() {
+        keyFrequency.forEach { frequencyValues[it.value]?.forEach { println("${it.key}:${it.value}") } }
     }
 }
 
@@ -123,16 +147,17 @@ class TestLFU {
         val lfu = LFUCache(2)
         //["LFUCache","put","put","put","put","put","get","put","get","get","get"]
         //[[2],[1,1],[1,11],[3,2],[3,3],[2,2],[1],[4,4],[1],[3],[4]]
-        lfu.put(1,1)
-        lfu.put(1,11)
-        lfu.put(3,2)
-        lfu.put(3,3)
-        lfu.put(2,2)
+        lfu.put(1, 1)
+        lfu.put(1, 11)
+        lfu.put(3, 2)
+        lfu.put(3, 3)
+        lfu.put(2, 2)
         lfu.get(1)
-        lfu.put(4,4)
+        lfu.put(4, 4)
         lfu.get(1)
         lfu.get(3)
         lfu.get(4)
+        lfu.print()
     }
 
 }
